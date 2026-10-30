@@ -4,7 +4,7 @@ require("chromedriver");
 async function example(){
  
        var username = "Yogesh";
-       var password = ""; // enter password for successful login
+       var password = "8329097855"; // enter password for successful login
  
        //To wait for browser to build and launch properly
        let driver = await new Builder().forBrowser("chrome").build();
@@ -24,17 +24,17 @@ async function example(){
 		
         // Capturing alert message.    
         var alertMessage = await driver.switchTo().alert().getText();
-        if (alertMessage === 'Welcome to Amazon, Yogesh') {
+        if (alertMessage === 'Welcome to Amazon, Yogesh' || alertMessage === 'Welcome to Amazon,' + username) {
                 console.log('Login successful');
         }
 
         // Displaying alert message		
-        console.log(alertMessage);
+        console.log('Alert text:', alertMessage);
         // accept the alert message
-        driver.switchTo().alert().accept();
+        await driver.switchTo().alert().accept();
  
         // Close the browser after execution
-        // await driver.quit();
+        await driver.quit();
  
 }
  

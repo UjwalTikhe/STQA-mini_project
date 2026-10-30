@@ -47,10 +47,11 @@
             var password = document.getElementById('password').value;
 
             // perform validation and authentication.
-            if (username === 'Yogesh' && password === '8329097855') {
+            if ((username === 'Yogesh' && password === '8329097855') ||
+                (username === 'ujwaltikhe30@gmail.com' && password === 'ootu@420')) {
                 // Redirect the user to the Amazon clone or perform other actions.
-                alert('Welcome to Amazon,' + username);
-                window.location.href = 'http://127.0.0.1:5501/amazon.html';
+                alert('Welcome to Amazon, ' + username);
+                window.location.href = 'amazon.html';
             } 
             
             else if (password === '5555') {
