@@ -1,0 +1,94 @@
+Requirement,Requirement title,Test case,Type,Linked defects
+REQ-01,User authentication & login validation,TC-LOGIN-01,functional,
+REQ-01,User authentication & login validation,TC-LOGIN-02,functional,
+REQ-01,User authentication & login validation,TC-LOGIN-03,negative,
+REQ-01,User authentication & login validation,TC-LOGIN-04,negative,
+REQ-01,User authentication & login validation,TC-LOGIN-05,negative,CAT-VAL-005
+REQ-01,User authentication & login validation,TC-LOGIN-06,security,
+REQ-01,User authentication & login validation,TC-LOGIN-07,functional,
+REQ-01,User authentication & login validation,TC-LOGIN-08,functional,
+REQ-01,User authentication & login validation,TC-LOGIN-09,negative,
+REQ-01,User authentication & login validation,TC-LOGIN-10,security,CAT-SEC-003
+REQ-02,"Navigation, routing & page integrity",TC-NAV-01,functional,
+REQ-02,"Navigation, routing & page integrity",TC-NAV-02,functional,
+REQ-02,"Navigation, routing & page integrity",TC-NAV-03,functional,
+REQ-02,"Navigation, routing & page integrity",TC-NAV-04,functional,
+REQ-02,"Navigation, routing & page integrity",TC-NAV-05,functional,
+REQ-02,"Navigation, routing & page integrity",TC-NAV-06,functional,
+REQ-02,"Navigation, routing & page integrity",TC-NAV-07,usability,CAT-UX-006
+REQ-02,"Navigation, routing & page integrity",TC-NAV-08,workflow,CAT-FUN-006
+REQ-02,"Navigation, routing & page integrity",TC-NAV-09,portability,CAT-NAV-002
+REQ-02,"Navigation, routing & page integrity",TC-NAV-10,regression,
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-01,functional,
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-02,functional,
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-03,data,
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-04,functional,
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-05,functional,CAT-FUN-007
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-06,functional,CAT-FUN-004
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-07,functional,CAT-FUN-004
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-08,functional,CAT-FUN-008
+REQ-03,Product catalogue rendering & add-to-cart,TC-CAT-09,data,CAT-FUN-017
+REQ-04,Cart management & persistence,TC-CART-01,functional,
+REQ-04,Cart management & persistence,TC-CART-02,functional,
+REQ-04,Cart management & persistence,TC-CART-03,functional,CAT-FUN-009
+REQ-04,Cart management & persistence,TC-CART-04,functional,CAT-FUN-009
+REQ-04,Cart management & persistence,TC-CART-05,data,
+REQ-04,Cart management & persistence,TC-CART-06,usability,CAT-UX-011
+REQ-04,Cart management & persistence,TC-CART-07,functional,CAT-FUN-010
+REQ-04,Cart management & persistence,TC-CART-08,data,
+REQ-05,Order summary & money handling,TC-SUM-01,functional,
+REQ-05,Order summary & money handling,TC-SUM-02,functional,
+REQ-05,Order summary & money handling,TC-SUM-03,functional,
+REQ-05,Order summary & money handling,TC-SUM-04,functional,
+REQ-05,Order summary & money handling,TC-SUM-05,functional,
+REQ-05,Order summary & money handling,TC-SUM-06,functional,CAT-FUN-011
+REQ-05,Order summary & money handling,TC-SUM-07,functional,CAT-FUN-011
+REQ-05,Order summary & money handling,TC-SUM-08,functional,CAT-MON-012
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-01,functional,
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-02,boundary,
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-03,boundary,
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-04,boundary,
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-05,boundary,CAT-VAL-013
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-06,boundary,CAT-VAL-013
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-07,boundary,CAT-VAL-013
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-08,workflow,CAT-FUN-006
+REQ-06,Shipping address validation (boundary analysis),TC-ADR-09,security,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-01,functional,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-02,boundary,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-03,boundary,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-04,boundary,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-05,boundary,CAT-VAL-014
+REQ-07,Payment card validation (boundary analysis),TC-PAY-06,boundary,CAT-VAL-003
+REQ-07,Payment card validation (boundary analysis),TC-PAY-07,boundary,CAT-VAL-003
+REQ-07,Payment card validation (boundary analysis),TC-PAY-08,boundary,CAT-VAL-003
+REQ-07,Payment card validation (boundary analysis),TC-PAY-09,boundary,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-10,boundary,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-11,boundary,
+REQ-07,Payment card validation (boundary analysis),TC-PAY-12,security,CAT-SEC-002
+REQ-07,Payment card validation (boundary analysis),TC-PAY-13,workflow,CAT-FUN-006
+REQ-08,Order history & delivery tracking,TC-ORD-01,functional,
+REQ-08,Order history & delivery tracking,TC-ORD-02,functional,
+REQ-08,Order history & delivery tracking,TC-ORD-03,functional,CAT-FUN-015
+REQ-08,Order history & delivery tracking,TC-ORD-04,functional,
+REQ-08,Order history & delivery tracking,TC-TRK-01,functional,
+REQ-08,Order history & delivery tracking,TC-TRK-02,data,CAT-FUN-016
+REQ-08,Order history & delivery tracking,TC-TRK-03,data,
+REQ-08,Order history & delivery tracking,TC-ORD-05,data,
+REQ-09,"Access control, session guard & data protection",TC-SEC-01,security,CAT-SEC-001
+REQ-09,"Access control, session guard & data protection",TC-SEC-02,security,CAT-SEC-001
+REQ-09,"Access control, session guard & data protection",TC-SEC-03,security,CAT-SEC-001
+REQ-09,"Access control, session guard & data protection",TC-SEC-04,security,CAT-SEC-001
+REQ-09,"Access control, session guard & data protection",TC-SEC-05,security,CAT-SEC-001
+REQ-09,"Access control, session guard & data protection",TC-SEC-06,security,CAT-SEC-001
+REQ-09,"Access control, session guard & data protection",TC-SEC-07,security,CAT-SEC-001
+REQ-09,"Access control, session guard & data protection",TC-SEC-08,security,CAT-SEC-004
+REQ-09,"Access control, session guard & data protection",TC-SEC-09,data,
+REQ-09,"Access control, session guard & data protection",TC-SEC-10,functional,
+REQ-10,Exploratory testing charters (session based),EXP-02-01,exploratory,
+REQ-10,Exploratory testing charters (session based),EXP-02-02,exploratory,
+REQ-10,Exploratory testing charters (session based),EXP-02-03,exploratory,
+REQ-10,Exploratory testing charters (session based),EXP-02-04,exploratory,
+REQ-10,Exploratory testing charters (session based),EXP-01-01,exploratory,
+REQ-10,Exploratory testing charters (session based),EXP-01-02,exploratory,
+REQ-10,Exploratory testing charters (session based),EXP-01-03,exploratory,
+REQ-10,Exploratory testing charters (session based),EXP-01-04,exploratory,

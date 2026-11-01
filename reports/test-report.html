@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>STQA Mini Project &mdash; Regression Test Report</title>
+<style>
+  body { font-family: "Segoe UI", Roboto, Arial, sans-serif; margin: 0; background: #f4f6f8; color: #1c2733; }
+  header { background: #131a22; color: #fff; padding: 28px 40px; }
+  header h1 { margin: 0 0 6px; font-size: 24px; }
+  header p { margin: 2px 0; color: #aeb9c4; font-size: 13px; }
+  main { padding: 28px 40px 60px; max-width: 1200px; margin: 0 auto; }
+  .cards { display: flex; gap: 14px; flex-wrap: wrap; margin: 22px 0; }
+  .card { background: #fff; border-radius: 8px; padding: 16px 22px; min-width: 150px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .card .value { font-size: 30px; font-weight: 700; }
+  .card.pass .value { color: #1a7f37; }
+  .card.fail .value { color: #b42318; }
+  .card.warn .value { color: #b54708; }
+  table { border-collapse: collapse; width: 100%; background: #fff; margin: 10px 0 26px; font-size: 13px; }
+  th, td { border: 1px solid #d8dee4; padding: 7px 10px; text-align: left; vertical-align: top; }
+  th { background: #eef2f5; }
+  tr.PASS td:nth-child(4) { color: #1a7f37; font-weight: 600; }
+  tr.FAIL-DEFECT td:nth-child(4) { color: #b54708; font-weight: 600; }
+  tr.FAIL-NEW td:nth-child(4) { color: #b42318; font-weight: 600; }
+  td.num { text-align: right; white-space: nowrap; }
+  .defect { background: #fff; border-left: 5px solid #b42318; border-radius: 6px; padding: 14px 18px; margin: 12px 0; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .defect.S2 { border-left-color: #b54708; }
+  .defect.S3 { border-left-color: #175cd3; }
+  .defect.S4 { border-left-color: #667085; }
+  .defect h4 { margin: 0 0 6px; }
+  .defect p { margin: 4px 0; font-size: 13px; }
+  .meta { color: #667085; font-size: 12px; }
+  h2 { margin-top: 34px; border-bottom: 2px solid #d8dee4; padding-bottom: 6px; }
+  .note { background: #fff8e6; border: 1px solid #f0d48a; border-radius: 6px; padding: 12px 16px; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Regression Test Report &mdash; Amazon Clone (STQA Mini Project)</h1>
+  <p>Generated 2026-11-01T13:57:10.205Z &middot; framework WebdriverIO v10 + ChromeDriver (Selenium WebDriver protocol)</p>
+  <p>Application under test http://127.0.0.1:5501 &middot; Selenium WebDriver protocol via ChromeDriver</p>
+</header>
+<main>
+  <div class="cards">
+    <div class="card"><div class="value">93</div>executed</div>
+    <div class="card pass"><div class="value">56</div>passed</div>
+    <div class="card warn"><div class="value">37</div>failed &rarr; logged defect</div>
+    <div class="card fail"><div class="value">0</div>failed &rarr; unmapped</div>
+    <div class="card"><div class="value">22</div>defects in register</div>
+  </div>
+
+  <div class="note">
+    <strong>Reading this report.</strong> Every test asserts the <em>required</em> behaviour from the test plan.
+    A row marked <em>FAIL &rarr; logged defect</em> is a confirmed bug: the application deviates from its
+    requirement and the failure is linked to an entry in the defect register below. Rows marked
+    <em>FAIL &rarr; unmapped</em> are new failures that must be triaged before the next regression cycle.
+    Dialog text (the application reports everything through <code>alert()</code>) is captured through a
+    sessionStorage-backed stub because ChromeDriver dismisses unattended native dialogs in headless mode;
+    the same assertions hold in headed mode where the dialogs are visible.
+  </div>
+
+  <h2>1. Results by requirement (traceability)</h2>
+  
+    <h3>REQ-01 &mdash; User authentication &amp; login validation</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-LOGIN-01</td>
+          <td>registered username is accepted and redirects to the catalog</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.56s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-LOGIN-02</td>
+          <td>registered email identity is accepted and redirects to the catalog</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.30s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-LOGIN-03</td>
+          <td>unknown username with unknown password is rejected</td>
+          <td>negative</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.24s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-LOGIN-04</td>
+          <td>blank username and blank password cannot authenticate</td>
+          <td>negative</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.07s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-LOGIN-05</td>
+          <td>correct password with unknown username reports the username as the problem</td>
+          <td>negative</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-005</td>
+          <td class="num">0.22s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-LOGIN-06</td>
+          <td>quote-based injection payload in the username field is rejected</td>
+          <td>security</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.25s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-LOGIN-07</td>
+          <td>password field masks its input</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.05s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-LOGIN-08</td>
+          <td>cart link is guarded for an anonymous visitor</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.06s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-LOGIN-09</td>
+          <td>three failed attempts in sequence all stay unauthenticated</td>
+          <td>negative</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">1.50s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-LOGIN-10</td>
+          <td>login page source does not embed any credential secret</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-003</td>
+          <td class="num">0.06s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-02 &mdash; Navigation, routing &amp; page integrity</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-NAV-01</td>
+          <td>catalog header logo returns to the homepage</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.22s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-NAV-02</td>
+          <td>Returns &amp; Orders opens the orders page</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.14s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-NAV-03</td>
+          <td>Cart link opens the checkout page</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.13s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-NAV-04</td>
+          <td>place-order button moves the buyer to the address step</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.11s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-NAV-05</td>
+          <td>track package opens the tracking page</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.13s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-NAV-06</td>
+          <td>tracking page links back to the order list</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.10s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-NAV-07</td>
+          <td>login page header logo is a keyboard-reachable link</td>
+          <td>usability</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-UX-006</td>
+          <td class="num">0.09s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-NAV-08</td>
+          <td>completing the address step continues to payment</td>
+          <td>workflow</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-006</td>
+          <td class="num">1.72s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-NAV-09</td>
+          <td>no link or handler hard-codes the host and port</td>
+          <td>portability</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-NAV-002</td>
+          <td class="num">0.07s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-NAV-10</td>
+          <td>login redirect is origin relative (fix for CAT-NAV-002 in login.html)</td>
+          <td>regression</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.09s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-03 &mdash; Product catalogue rendering &amp; add-to-cart</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-CAT-01</td>
+          <td>the grid renders the full product catalogue</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.21s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-CAT-02</td>
+          <td>every card exposes name, rating and price</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.07s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-CAT-03</td>
+          <td>all catalogue images resolve without a broken source</td>
+          <td>data</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.08s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-CAT-04</td>
+          <td>add to cart raises the header counter by one</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.42s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CAT-05</td>
+          <td>the chosen product quantity is added to the cart</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-007</td>
+          <td class="num">1.60s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CAT-06</td>
+          <td>the header search control is enabled</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-004</td>
+          <td class="num">0.11s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CAT-07</td>
+          <td>searching filters the grid to matching products</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-004</td>
+          <td class="num">1.24s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CAT-08</td>
+          <td>product detail page can add its item to the cart</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-008</td>
+          <td class="num">0.82s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CAT-09</td>
+          <td>the cart survives a page reload</td>
+          <td>data</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-017</td>
+          <td class="num">0.30s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-04 &mdash; Cart management &amp; persistence</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-CART-01</td>
+          <td>checkout renders one line per distinct cart product</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.16s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-CART-02</td>
+          <td>deleting a line removes it and confirms with a message</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.17s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CART-03</td>
+          <td>the header counter reflects the live cart on checkout</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-009</td>
+          <td class="num">0.12s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CART-04</td>
+          <td>the header counter drops immediately after a deletion</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-009</td>
+          <td class="num">0.17s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-CART-05</td>
+          <td>a deletion is persisted to storage across a reload</td>
+          <td>data</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.18s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CART-06</td>
+          <td>an empty cart explains itself to the buyer</td>
+          <td>usability</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-UX-011</td>
+          <td class="num">0.09s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-CART-07</td>
+          <td>choosing a delivery option updates the displayed delivery date</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-010</td>
+          <td class="num">0.55s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-CART-08</td>
+          <td>line prices match the catalogue data</td>
+          <td>data</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.12s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-05 &mdash; Order summary &amp; money handling</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-SUM-01</td>
+          <td>the item count label matches the cart quantity</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.16s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-SUM-02</td>
+          <td>the items amount equals the cart subtotal</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.11s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-SUM-03</td>
+          <td>total before tax is items plus shipping</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.11s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-SUM-04</td>
+          <td>estimated tax is ten percent of the subtotal</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.12s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-SUM-05</td>
+          <td>order total is subtotal plus tax</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.11s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SUM-06</td>
+          <td>the summary recalculates after a cart line is deleted</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-011</td>
+          <td class="num">0.16s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SUM-07</td>
+          <td>the summary counts an item added from the catalogue</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-011</td>
+          <td class="num">0.67s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SUM-08</td>
+          <td>shipping charged matches the pre-selected delivery option</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-MON-012</td>
+          <td class="num">0.11s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-06 &mdash; Shipping address validation (boundary analysis)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-ADR-01</td>
+          <td>a complete address is accepted</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.74s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-ADR-02</td>
+          <td>an empty street address is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.63s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-ADR-03</td>
+          <td>an entirely empty form is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.10s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-ADR-04</td>
+          <td>a whitespace-only address is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.67s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-ADR-05</td>
+          <td>a non-numeric zipcode is refused</td>
+          <td>boundary</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-013</td>
+          <td class="num">0.88s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-ADR-06</td>
+          <td>a zipcode shorter than the 5-digit minimum is refused</td>
+          <td>boundary</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-013</td>
+          <td class="num">0.78s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-ADR-07</td>
+          <td>a zipcode longer than 10 characters is refused</td>
+          <td>boundary</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-013</td>
+          <td class="num">0.74s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-ADR-08</td>
+          <td>an accepted address advances to payment without a reload</td>
+          <td>workflow</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-006</td>
+          <td class="num">2.54s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-ADR-09</td>
+          <td>markup typed into the address is not executed</td>
+          <td>security</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">1.61s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-07 &mdash; Payment card validation (boundary analysis)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-PAY-01</td>
+          <td>a well-formed card is accepted</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.45s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-PAY-02</td>
+          <td>a 15-digit card number is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.43s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-PAY-03</td>
+          <td>a 17-digit card number is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.53s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-PAY-04</td>
+          <td>alphabetic characters in the card number are refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.52s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-PAY-05</td>
+          <td>a 16-digit card failing the checksum is refused</td>
+          <td>boundary</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-014</td>
+          <td class="num">0.51s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-PAY-06</td>
+          <td>expiry month 13 is refused</td>
+          <td>boundary</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-003</td>
+          <td class="num">0.82s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-PAY-07</td>
+          <td>expiry 99/99 is refused</td>
+          <td>boundary</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-003</td>
+          <td class="num">0.73s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-PAY-08</td>
+          <td>an expiry date in the past is refused</td>
+          <td>boundary</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-VAL-003</td>
+          <td class="num">0.65s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-PAY-09</td>
+          <td>a two-digit CVV is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.77s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-PAY-10</td>
+          <td>a five-digit CVV is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.74s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-PAY-11</td>
+          <td>a blank required field is refused</td>
+          <td>boundary</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.13s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-PAY-12</td>
+          <td>the card number never reaches the browser URL</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-002</td>
+          <td class="num">2.18s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-PAY-13</td>
+          <td>a successful payment shows an order confirmation</td>
+          <td>workflow</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-006</td>
+          <td class="num">2.21s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-08 &mdash; Order history &amp; delivery tracking</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>TC-ORD-01</td>
+          <td>the orders page lists every past purchase</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.12s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-ORD-02</td>
+          <td>each order shows name, delivery date and quantity</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.05s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-ORD-03</td>
+          <td>buy-it-again returns the item to the cart</td>
+          <td>functional</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-015</td>
+          <td class="num">0.75s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-ORD-04</td>
+          <td>track package routes to the tracking page</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.21s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-TRK-01</td>
+          <td>tracking highlights the current shipment stage</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.07s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-TRK-02</td>
+          <td>the header counter matches the real cart on the tracking page</td>
+          <td>data</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-FUN-016</td>
+          <td class="num">0.14s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-TRK-03</td>
+          <td>the tracked product image resolves</td>
+          <td>data</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.06s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-ORD-05</td>
+          <td>the default cart keeps three units across the flow</td>
+          <td>data</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.14s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-09 &mdash; Access control, session guard &amp; data protection</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-01</td>
+          <td>an anonymous visitor is refused the catalog page</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-001</td>
+          <td class="num">0.12s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-02</td>
+          <td>an anonymous visitor is refused the cart page</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-001</td>
+          <td class="num">0.08s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-03</td>
+          <td>an anonymous visitor is refused the order history page</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-001</td>
+          <td class="num">0.06s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-04</td>
+          <td>an anonymous visitor is refused the address step page</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-001</td>
+          <td class="num">0.04s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-05</td>
+          <td>an anonymous visitor is refused the payment step page</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-001</td>
+          <td class="num">0.05s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-06</td>
+          <td>an anonymous visitor is refused the delivery tracking page</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-001</td>
+          <td class="num">0.05s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-07</td>
+          <td>login issues a session marker the pages can verify</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-001</td>
+          <td class="num">0.64s</td>
+        </tr>
+        <tr class="FAIL-DEFECT">
+          <td>TC-SEC-08</td>
+          <td>a numeric-only password does not meet the documented policy</td>
+          <td>security</td>
+          <td>FAIL-DEFECT</td>
+          <td>CAT-SEC-004</td>
+          <td class="num">0.47s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-SEC-09</td>
+          <td>the catalogue feed exposes no personal data or secrets</td>
+          <td>data</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.08s</td>
+        </tr>
+        <tr class="PASS">
+          <td>TC-SEC-10</td>
+          <td>the catalog is reachable through a normal login</td>
+          <td>functional</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.46s</td>
+        </tr></tbody>
+    </table>
+
+    <h3>REQ-10 &mdash; Exploratory testing charters (session based)</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Test case</th><th>Type</th><th>Verdict</th><th>Defects</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr class="PASS">
+          <td>EXP-02-01</td>
+          <td>address fields accept symbolic / negative zipcode</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.88s</td>
+        </tr>
+        <tr class="PASS">
+          <td>EXP-02-02</td>
+          <td>reflected address input is not escaped</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">1.41s</td>
+        </tr>
+        <tr class="PASS">
+          <td>EXP-02-03</td>
+          <td>direct URL access to a protected page without login</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.78s</td>
+        </tr>
+        <tr class="PASS">
+          <td>EXP-02-04</td>
+          <td>tamper the cart via localStorage then reload</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">0.16s</td>
+        </tr>
+        <tr class="PASS">
+          <td>EXP-01-01</td>
+          <td>rapid multi-click on Add to Cart</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">2.52s</td>
+        </tr>
+        <tr class="PASS">
+          <td>EXP-01-02</td>
+          <td>place order with an empty cart</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">1.44s</td>
+        </tr>
+        <tr class="PASS">
+          <td>EXP-01-03</td>
+          <td>browser back-button across the payment step</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">2.10s</td>
+        </tr>
+        <tr class="PASS">
+          <td>EXP-01-04</td>
+          <td>complete a purchase end-to-end and inspect the confirmation</td>
+          <td>exploratory</td>
+          <td>PASS</td>
+          <td></td>
+          <td class="num">4.78s</td>
+        </tr></tbody>
+    </table>
+
+  <h2>2. Defect register (bug taxonomy applied)</h2>
+  
+    <div class="defect S1">
+      <h4>CAT-SEC-001 &mdash; No session guard: every buyer page is served to anonymous visitors</h4>
+      <p class="meta">Security &middot; severity S1 &middot; priority P1 &middot; status Open</p>
+      <p><strong>Expected:</strong> Unauthenticated requests to amazon.html, checkout.html, orders.html, user_details.html, payments.html and tracking.html are redirected to login.html.</p>
+      <p><strong>Actual:</strong> All six pages render their full content without any login; no session token is created at login time either.</p>
+      <p><strong>Repro:</strong> Open http://127.0.0.1:5501/checkout.html directly in a fresh browser profile.</p>
+      <p><strong>Root cause:</strong> login.html never persists an authenticated session and no page performs an access check.</p>
+      <p class="meta">Detected by: TC-SEC-01, TC-SEC-02, TC-SEC-03, TC-SEC-04, TC-SEC-05, TC-SEC-06, TC-SEC-07</p>
+    </div>
+
+    <div class="defect S1">
+      <h4>CAT-SEC-002 &mdash; Card number is written into the URL by a GET form submission</h4>
+      <p class="meta">Security &middot; severity S1 &middot; priority P1 &middot; status Open</p>
+      <p><strong>Expected:</strong> Payment data is never exposed in the address bar, browser history or Referer header.</p>
+      <p><strong>Actual:</strong> payments.html submits through GET with named inputs, producing ?card-number=4111111111111112&amp;expiration-date=...&amp;cvv=...</p>
+      <p><strong>Repro:</strong> Submit a valid card on payments.html and inspect the address bar after the success alert.</p>
+      <p><strong>Root cause:</strong> The Proceed control is a bare submit button inside a form with no method/action and no preventDefault.</p>
+      <p class="meta">Detected by: TC-PAY-12</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-SEC-003 &mdash; Hard-coded credentials shipped in client-side source</h4>
+      <p class="meta">Security &middot; severity S2 &middot; priority P1 &middot; status Open</p>
+      <p><strong>Expected:</strong> Credential verification happens server side; no secret appears in page source.</p>
+      <p><strong>Actual:</strong> login.html contains both valid username/password pairs in an inline script.</p>
+      <p><strong>Repro:</strong> View source of login.html and search for the password strings.</p>
+      <p><strong>Root cause:</strong> Authentication implemented entirely in the browser for the assignment demo.</p>
+      <p class="meta">Detected by: TC-LOGIN-10</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-SEC-004 &mdash; Credential policy violated: numeric-only password accepted</h4>
+      <p class="meta">Security &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> Per REQ-09.3 the password must be at least 8 characters with mixed character classes.</p>
+      <p><strong>Actual:</strong> The account 'Yogesh' authenticates with the 10-digit phone number 8329097855.</p>
+      <p><strong>Repro:</strong> Log in with Yogesh / 8329097855.</p>
+      <p><strong>Root cause:</strong> No password policy is enforced anywhere in the application.</p>
+      <p class="meta">Detected by: TC-SEC-08</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-VAL-003 &mdash; Expiry date validation accepts impossible and past dates</h4>
+      <p class="meta">Validation &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> Months 01-12 only, and any date earlier than the current month must be refused.</p>
+      <p><strong>Actual:</strong> The expression /^\d{2}\/\d{2}$/ accepts 13/25, 99/99 and 01/20.</p>
+      <p><strong>Repro:</strong> Enter expiry 13/25 (or 99/99, or 01/20) with a valid card and CVV, then press Proceed.</p>
+      <p><strong>Root cause:</strong> isValidExpirationDate in payments.html only checks the shape of the string.</p>
+      <p class="meta">Detected by: TC-PAY-06, TC-PAY-07, TC-PAY-08</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-VAL-005 &mdash; Login failure message blames the wrong field</h4>
+      <p class="meta">Validation &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> An unknown username must be reported as a username problem.</p>
+      <p><strong>Actual:</strong> An unknown username with the password '5555' is reported as 'Invalid Password'.</p>
+      <p><strong>Repro:</strong> Submit username 'nobody' with password '5555'.</p>
+      <p><strong>Root cause:</strong> login.html tests the password branch before the username branch.</p>
+      <p class="meta">Detected by: TC-LOGIN-05</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-VAL-013 &mdash; Zipcode accepts any character and any length</h4>
+      <p class="meta">Validation &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> Zipcode is constrained to 5-10 numeric characters.</p>
+      <p><strong>Actual:</strong> 'ABCDE', '90' and a 12-digit string are all accepted as a valid address.</p>
+      <p><strong>Repro:</strong> Fill the address form with zipcode 'ABCDE' and press Next.</p>
+      <p><strong>Root cause:</strong> user_details.html only checks that the field is non-empty.</p>
+      <p class="meta">Detected by: TC-ADR-05, TC-ADR-06, TC-ADR-07</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-VAL-014 &mdash; Card number accepts any 16 digits (no checksum)</h4>
+      <p class="meta">Validation &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> A card that fails the Luhn checksum is refused.</p>
+      <p><strong>Actual:</strong> 0000000000000000 is accepted as a successful payment.</p>
+      <p><strong>Repro:</strong> Pay with card 0000000000000000, expiry 12/28, CVV 123.</p>
+      <p><strong>Root cause:</strong> isValidCardNumber in payments.html only tests /^\d{16}$/.</p>
+      <p class="meta">Detected by: TC-PAY-05</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-NAV-002 &mdash; Hard-coded host and port in an onclick handler</h4>
+      <p class="meta">Navigation &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> All navigation is origin relative so the app can be served from any host or port.</p>
+      <p><strong>Actual:</strong> orders.html line 176 navigates to http://127.0.0.1:5501/user_details.html.</p>
+      <p><strong>Repro:</strong> Serve the app on any port other than 5501 and press 'Buy it again' on the third order.</p>
+      <p><strong>Root cause:</strong> Absolute URL literal inside the inline onclick attribute.</p>
+      <p class="meta">Detected by: TC-NAV-09</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-FUN-004 &mdash; Header search is disabled and unimplemented</h4>
+      <p class="meta">Functional &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> The search button is enabled and filters the catalogue by the entered query.</p>
+      <p><strong>Actual:</strong> The button carries the disabled attribute and no filtering code exists.</p>
+      <p><strong>Repro:</strong> Open amazon.html, type 'basketball' and try to search.</p>
+      <p><strong>Root cause:</strong> amazon.html renders &lt;button disabled class=&quot;search-button&quot;&gt; and scripts/amazon.js has no search handler.</p>
+      <p class="meta">Detected by: TC-CAT-06, TC-CAT-07</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-FUN-006 &mdash; Successful form submissions dead-end instead of advancing the flow</h4>
+      <p class="meta">Functional &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> Address step routes to payments.html; payment routes to an order confirmation.</p>
+      <p><strong>Actual:</strong> Both steps only alert and then perform a native GET reload of the same page.</p>
+      <p><strong>Repro:</strong> Complete user_details.html or payments.html and watch the address bar.</p>
+      <p><strong>Root cause:</strong> The Proceed controls are submit buttons with no preventDefault and no navigation logic.</p>
+      <p class="meta">Detected by: TC-NAV-08, TC-ADR-08, TC-PAY-13</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-FUN-007 &mdash; Quantity selector is ignored when adding to cart</h4>
+      <p class="meta">Functional &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> Choosing quantity 5 adds five units to the cart.</p>
+      <p><strong>Actual:</strong> Exactly one unit is added regardless of the selected quantity.</p>
+      <p><strong>Repro:</strong> On amazon.html select quantity 5 on any product and press Add to Cart.</p>
+      <p><strong>Root cause:</strong> scripts/amazon.js reads only data-product-id and never the adjacent &lt;select&gt;.</p>
+      <p class="meta">Detected by: TC-CAT-05</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-FUN-008 &mdash; Product detail pages load a script that does not exist (HTTP 404)</h4>
+      <p class="meta">Functional &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> products/backpack.html and products/basketball.html wire their Add to Cart / Buy Now buttons.</p>
+      <p><strong>Actual:</strong> Both pages request ../scripts/product-details.js which the server answers with 404, so the buttons are inert.</p>
+      <p><strong>Repro:</strong> Open products/backpack.html, press Add to Cart, and check the cart counter.</p>
+      <p><strong>Root cause:</strong> Missing asset: scripts/product-details.js was never committed.</p>
+      <p class="meta">Detected by: TC-CAT-08</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-FUN-009 &mdash; Checkout header cart counter is never synchronised</h4>
+      <p class="meta">Functional &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> The header counter shows the live cart quantity on checkout.html and updates after deletions.</p>
+      <p><strong>Actual:</strong> The counter keeps the hard-coded 0 for the whole session on that page.</p>
+      <p><strong>Repro:</strong> Open checkout.html with a non-empty cart, then delete a line.</p>
+      <p><strong>Root cause:</strong> scripts/checkout.js never touches .js-cart-quantity.</p>
+      <p class="meta">Detected by: TC-CART-03, TC-CART-04</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-FUN-010 &mdash; Delivery option radios have no effect</h4>
+      <p class="meta">Functional &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> Selecting a delivery option updates the displayed delivery date and the shipping charge.</p>
+      <p><strong>Actual:</strong> The radios have no change handler; the line keeps 'Tuesday, June 21'.</p>
+      <p><strong>Repro:</strong> On checkout.html select the third delivery option.</p>
+      <p><strong>Root cause:</strong> scripts/checkout.js renders the radios but binds no listener.</p>
+      <p class="meta">Detected by: TC-CART-07</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-FUN-011 &mdash; Order summary panel is static markup</h4>
+      <p class="meta">Functional &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> Item count and amounts are computed from the live cart.</p>
+      <p><strong>Actual:</strong> The panel always shows Items (3) / $42.75 / $52.51 regardless of cart content.</p>
+      <p><strong>Repro:</strong> Delete a cart line or add a product, then re-open checkout.html.</p>
+      <p><strong>Root cause:</strong> checkout.html hard-codes the summary rows; only the line list is dynamic.</p>
+      <p class="meta">Detected by: TC-SUM-06, TC-SUM-07</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-FUN-015 &mdash; Buy-it-again buttons are inert or misrouted</h4>
+      <p class="meta">Functional &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> Pressing Buy it again returns that product to the cart.</p>
+      <p><strong>Actual:</strong> #product-1 and #product-2 have no handler; #product-3 navigates to the address form.</p>
+      <p><strong>Repro:</strong> On orders.html press any Buy it again button and inspect the cart.</p>
+      <p><strong>Root cause:</strong> orders.html defines the buttons without behaviour (except one onclick literal).</p>
+      <p class="meta">Detected by: TC-ORD-03</p>
+    </div>
+
+    <div class="defect S4">
+      <h4>CAT-FUN-016 &mdash; Tracking page hard-codes the cart counter</h4>
+      <p class="meta">Functional &middot; severity S4 &middot; priority P4 &middot; status Open</p>
+      <p><strong>Expected:</strong> The header counter reflects the real cart size on every page.</p>
+      <p><strong>Actual:</strong> tracking.html renders &lt;div class=&quot;cart-quantity&quot;&gt;3&lt;/div&gt; with no js- hook, so it always shows 3.</p>
+      <p><strong>Repro:</strong> Seed a one-item cart and open tracking.html.</p>
+      <p><strong>Root cause:</strong> tracking.html omits the js-cart-quantity class used by the header script.</p>
+      <p class="meta">Detected by: TC-TRK-02</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-FUN-017 &mdash; Catalogue header cart counter is not synchronised on page load</h4>
+      <p class="meta">Functional &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> Opening amazon.html with items already in the cart shows the live unit count in the header counter.</p>
+      <p><strong>Actual:</strong> The header keeps the hard-coded 0 for a returning buyer until an Add to Cart click runs; a seeded 3-unit cart still displays 0 after a reload.</p>
+      <p><strong>Repro:</strong> Seed the cart with 3 units in localStorage, open amazon.html, and read the header counter before clicking anything.</p>
+      <p><strong>Root cause:</strong> scripts/amazon.js calls updateCartQuantity() only inside the add-to-cart click handler (line 80) and never on initial render, while amazon.html hard-codes .js-cart-quantity to 0.</p>
+      <p class="meta">Detected by: TC-CAT-09</p>
+    </div>
+
+    <div class="defect S2">
+      <h4>CAT-MON-012 &mdash; Shipping charge contradicts the selected delivery option</h4>
+      <p class="meta">Money &middot; severity S2 &middot; priority P2 &middot; status Open</p>
+      <p><strong>Expected:</strong> The summary charges the price of the pre-selected delivery option (FREE by default).</p>
+      <p><strong>Actual:</strong> The summary always charges $4.99 while the default radio is FREE Shipping.</p>
+      <p><strong>Repro:</strong> Open checkout.html and compare the first delivery option with the shipping row.</p>
+      <p><strong>Root cause:</strong> Static summary markup plus unbound delivery radios.</p>
+      <p class="meta">Detected by: TC-SUM-08</p>
+    </div>
+
+    <div class="defect S4">
+      <h4>CAT-UX-006 &mdash; Login page logo anchor is not keyboard reachable</h4>
+      <p class="meta">Usability &middot; severity S4 &middot; priority P4 &middot; status Open</p>
+      <p><strong>Expected:</strong> Interactive anchors expose an href so keyboard users can reach them.</p>
+      <p><strong>Actual:</strong> login.html renders &lt;a id=&quot;header-link&quot;&gt; without href.</p>
+      <p><strong>Repro:</strong> Tab through login.html and try to activate the logo.</p>
+      <p><strong>Root cause:</strong> Anchor used as a click target without a destination.</p>
+      <p class="meta">Detected by: TC-NAV-07</p>
+    </div>
+
+    <div class="defect S3">
+      <h4>CAT-UX-011 &mdash; Empty cart renders a blank review page</h4>
+      <p class="meta">Usability &middot; severity S3 &middot; priority P3 &middot; status Open</p>
+      <p><strong>Expected:</strong> An empty cart shows an explanatory message and a link back to the catalogue.</p>
+      <p><strong>Actual:</strong> The order summary area renders nothing at all.</p>
+      <p><strong>Repro:</strong> Delete every cart line and reload checkout.html.</p>
+      <p><strong>Root cause:</strong> scripts/checkout.js concatenates zero line templates and writes an empty string.</p>
+      <p class="meta">Detected by: TC-CART-06</p>
+    </div>
+
+  <h2>3. Exploratory testing sessions</h2>
+  <table>
+    <thead><tr><th>Finding</th><th>Charter</th><th>Observation</th><th>Classification</th><th>Severity</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ENV</td>
+        <td>Environment readiness</td>
+        <td>ChromeDriver resolved at D:\Assignments\STQA mini\node_modules\chromedriver\lib\chromedriver\chromedriver.exe; application served from http://127.0.0.1:5501.</td>
+        <td>Informational</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td>EXP-01-01</td>
+        <td>Explore the complete customer checkout and payment journey using edge-case inputs, rapid multi-clicks and browser history transitions (SFDIPOT / extreme-value tour, 45 min timebox).</td>
+        <td>Five rapid Add-to-Cart clicks on the same product left the header counter at &quot;8&quot; (expected 5). Cart writes are unthrottled local-array updates, so bursts can drop or double-count increments.</td>
+        <td>CAT-FUN-007 (quantity handling) / concurrency</td>
+        <td>S3</td>
+      </tr>
+      <tr>
+        <td>EXP-01-02</td>
+        <td>Explore the complete customer checkout and payment journey using edge-case inputs, rapid multi-clicks and browser history transitions (SFDIPOT / extreme-value tour, 45 min timebox).</td>
+        <td>With zero items in the cart the &quot;Place your order&quot; button is still clickable and the buyer is routed to the address step instead of the action being disabled. An empty order can advance through checkout.</td>
+        <td>CAT-UX-011 / CAT-FUN (missing guard)</td>
+        <td>S3</td>
+      </tr>
+      <tr>
+        <td>EXP-01-03</td>
+        <td>Explore the complete customer checkout and payment journey using edge-case inputs, rapid multi-clicks and browser history transitions (SFDIPOT / extreme-value tour, 45 min timebox).</td>
+        <td>From payments.html the back button landed on &quot;http://127.0.0.1:5501/checkout.html&quot; and forward returned to &quot;http://127.0.0.1:5501/payments.html&quot;. The payment form re-renders from the query string, so card data typed on the first visit is either replayed from the URL or silently cleared depending on direction.</td>
+        <td>CAT-SEC-002 (PAN in URL) / navigation</td>
+        <td>S2</td>
+      </tr>
+      <tr>
+        <td>EXP-01-04</td>
+        <td>Explore the complete customer checkout and payment journey using edge-case inputs, rapid multi-clicks and browser history transitions (SFDIPOT / extreme-value tour, 45 min timebox).</td>
+        <td>Submitting a valid card produced the dialog &quot;(no dialog captured)&quot; but no navigation to an order-confirmation or tracking page; the buyer is left on payments.html with only a transient alert as proof of purchase.</td>
+        <td>CAT-FUN-006 (workflow does not advance)</td>
+        <td>S2</td>
+      </tr>
+      <tr>
+        <td>EXP-02-01</td>
+        <td>Tour the data-entry and access-control surfaces with hostile and out-of-range inputs (SFDIPOT data/interface tour): address fields, direct URL access to protected pages, and reflected input.</td>
+        <td>The zipcode field accepted &quot;-@@12&quot; and the form reported &quot;User details entered successfully!&quot;. Only blankness is checked; there is no numeric/format validation on the postal code.</td>
+        <td>CAT-VAL-013 (missing zipcode validation)</td>
+        <td>S3</td>
+      </tr>
+      <tr>
+        <td>EXP-02-02</td>
+        <td>Tour the data-entry and access-control surfaces with hostile and out-of-range inputs (SFDIPOT data/interface tour): address fields, direct URL access to protected pages, and reflected input.</td>
+        <td>Injecting an onerror image payload into the address field did not execute script (input is treated as text). Recorded as an observation for the security taxonomy.</td>
+        <td>No defect — input sanitized/inert</td>
+        <td>S4</td>
+      </tr>
+      <tr>
+        <td>EXP-02-03</td>
+        <td>Tour the data-entry and access-control surfaces with hostile and out-of-range inputs (SFDIPOT data/interface tour): address fields, direct URL access to protected pages, and reflected input.</td>
+        <td>Requesting checkout.html directly in an unauthenticated session stayed on &quot;http://127.0.0.1:5501/checkout.html&quot; — the page is reachable without authentication (client-side-only protection).</td>
+        <td>CAT-SEC-001 (no server-side session gate)</td>
+        <td>S2</td>
+      </tr>
+      <tr>
+        <td>EXP-02-04</td>
+        <td>Tour the data-entry and access-control surfaces with hostile and out-of-range inputs (SFDIPOT data/interface tour): address fields, direct URL access to protected pages, and reflected input.</td>
+        <td>Hand-editing localStorage to quantity 99 and reloading produced 1 cart line(s) with summary &quot;(none)&quot;. Cart state is fully client-trusted; quantities can be inflated without any server reconciliation.</td>
+        <td>CAT-SEC / CAT-MON-012 (client-trusted totals)</td>
+        <td>S2</td>
+      </tr></tbody>
+  </table>
+
+  <h2>4. Failure evidence (screenshots)</h2>
+  <p>No failure screenshots were produced in this run.</p>
+</main>
+</body>
+</html>
