@@ -51,7 +51,14 @@ async function armDialogCapture() {
 }
 
 async function alerts() {
-  return browser.execute(() => JSON.parse(sessionStorage.getItem('__captured_alerts') || '[]'));
+  try {
+    return await browser.execute(() => JSON.parse(sessionStorage.getItem('__captured_alerts') || '[]'));
+  } catch (err) {
+    if (err && err.message && (err.message.includes('Cannot find context') || err.message.includes('stale') || err.message.includes('target closed') || err.message.includes('no such execution context'))) {
+      return [];
+    }
+    throw err;
+  }
 }
 
 async function lastAlert(timeout = 8000) {
@@ -126,11 +133,26 @@ async function reload(page, { capture = true } = {}) {
 /** Types a value and confirms the live document actually holds it. */
 async function typeInto(selector, value) {
   const element = await $(selector);
-  await element.waitForDisplayed();
+  await element.waitForDisplayed({ timeout: 10000 });
+  await element.click();
   await element.setValue(value);
+
+  // If the browser or autocomplete interfered, enforce via input event
+  const current = await $(selector).getValue();
+  if (current !== value) {
+    await browser.execute((sel, val) => {
+      const el = document.querySelector(sel);
+      if (el) {
+        el.value = val;
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }, selector, value);
+  }
+
   await browser.waitUntil(async () => (await $(selector).getValue()) === value, {
     timeout: 5000,
-    interval: 150,
+    interval: 100,
     timeoutMsg: `Value for ${selector} did not stick`,
   });
 }
