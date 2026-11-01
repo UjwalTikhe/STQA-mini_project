@@ -138,7 +138,7 @@ flowchart TD
    ```
 3. **Execution Command:**
    ```bash
-   node tests/login/login.test1.js
+   node tests/legacy/login/login.test1.js
    ```
 
 ### 3.6 Entry, Suspension & Exit Criteria
@@ -232,26 +232,26 @@ The following matrix connects requirements, test modules, automated test scripts
 
 | Req ID | Module | Script Path | Test Case Objective | Inputs / Test Data | Expected Outcome | Actual Result | Status |
 | :---: | :---: | :--- | :--- | :--- | :--- | :--- | :---: |
-| **REQ-01** | Authentication | [`tests/login/login.test1.js`](file:///d:/Assignments/STQA%20mini/tests/login/login.test1.js) | Verify successful login with valid credentials | User: `Yogesh`<br>Pass: `8329097855` | Alert "Welcome to Amazon, Yogesh" & redirect to `amazon.html` | Alert captured, redirection successful | **PASS** |
-| **REQ-02** | Authentication | [`tests/login/login.test2.js`](file:///d:/Assignments/STQA%20mini/tests/login/login.test2.js) | Verify rejection of incorrect password | User: `Yogesh`<br>Pass: `5555` | Alert "Invalid Password. Login Failed." | Alert captured correctly | **PASS** |
-| **REQ-03** | Authentication | [`tests/login/login.test3.js`](file:///d:/Assignments/STQA%20mini/tests/login/login.test3.js) | Verify rejection of unrecognized username | User: `abcd`<br>Pass: `password` | Alert "Invalid Username. Login Failed." | Alert captured correctly | **PASS** |
-| **REQ-04** | Authentication | [`tests/login/login.test4.js`](file:///d:/Assignments/STQA%20mini/tests/login/login.test4.js) | Verify rejection of blank credentials | User: `""`<br>Pass: `""` | Alert "Invalid credentials. Login Failed." | Alert captured correctly | **PASS** |
-| **REQ-05** | Catalog | [`tests/homepage/test1.js`](file:///d:/Assignments/STQA%20mini/tests/homepage/test1.js) | Verify product grid displays catalog cards | Nav to `amazon.html` | Grid elements `.product-container` populated from JSON | All cards rendered with buttons | **PASS** |
-| **REQ-06** | Cart | [`tests/cart/delete.test.js`](file:///d:/Assignments/STQA%20mini/tests/cart/delete.test.js) | Verify deletion of product from cart | Click delete link on checkout | Item container removed; cart counter decremented | Cart item removed from DOM | **PASS** |
-| **REQ-07** | Shipping Details | [`tests/address/test1.js`](file:///d:/Assignments/STQA%20mini/tests/address/test1.js) | Verify address form with missing street address | City: "Example City", Country: "USA", Zip: "123" | Alert "Please fill out all fields" | Alert triggered due to missing street address | **PASS** |
-| **REQ-08** | Shipping Details | [`tests/address/test2.js`](file:///d:/Assignments/STQA%20mini/tests/address/test2.js) | Verify address form with missing country | Addr: "123 St", City: "Pune", Zip: "411001" | Form validation error prevents submission | Validation alert displayed | **PASS** |
-| **REQ-09** | Shipping Details | [`tests/address/test3.js`](file:///d:/Assignments/STQA%20mini/tests/address/test3.js) | Verify address form with missing city | Addr: "123 St", Country: "India", Zip: "411001" | Form validation error prevents submission | Validation alert displayed | **PASS** |
-| **REQ-10** | Shipping Details | [`tests/address/test4.js`](file:///d:/Assignments/STQA%20mini/tests/address/test4.js) | Verify address form with missing zip code | Addr: "123 St", City: "Pune", Country: "India" | Form validation error prevents submission | Validation alert displayed | **PASS** |
-| **REQ-11** | Shipping Details | [`tests/address/test5.js`](file:///d:/Assignments/STQA%20mini/tests/address/test5.js) | Verify address form with complete valid data | All 4 fields filled | Alert "User details entered successfully!" | Alert captured, data accepted | **PASS** |
-| **REQ-12** | Payment | [`tests/payment/test1.js`](file:///d:/Assignments/STQA%20mini/tests/payment/test1.js) | Verify rejection of invalid card number (< 16 digits) | Card: `111122223333` (12 digits) | Alert "Please fill out all required fields correctly." | Alert captured correctly | **PASS** |
-| **REQ-13** | Payment | [`tests/payment/test2.js`](file:///d:/Assignments/STQA%20mini/tests/payment/test2.js) | Verify rejection of invalid expiration date format | Card: 16 digits, Expiry: `13/2026` | Alert for invalid expiration date format | Alert captured correctly | **PASS** |
-| **REQ-14** | Payment | [`tests/payment/test3.js`](file:///d:/Assignments/STQA%20mini/tests/payment/test3.js) | Verify rejection of invalid CVV length (< 3 digits) | Card: 16 digits, Expiry: `10/28`, CVV: `12` | Alert for invalid CVV | Alert captured correctly | **PASS** |
-| **REQ-15** | Payment | [`tests/payment/test4.js`](file:///d:/Assignments/STQA%20mini/tests/payment/test4.js) | Verify successful payment processing with valid inputs | 16-digit card, `12/28`, 3-digit CVV | Alert "Payment successful. Order placed!" | Alert captured, order completed | **PASS** |
-| **REQ-16** | Order Tracking | [`tests/tracking/tracking.test1.js`](file:///d:/Assignments/STQA%20mini/tests/tracking/tracking.test1.js) | Verify tracking page title and header rendering | Nav to `tracking.html` | Page title "Tracking", tracking details visible | Title verified | **PASS** |
-| **REQ-17** | Order Tracking | [`tests/tracking/tracking.test2.js`](file:///d:/Assignments/STQA%20mini/tests/tracking/tracking.test2.js) | Verify delivery progress status bar | Inspect `.progress-bar` | Progress bar represents order lifecycle | Progress bar DOM confirmed | **PASS** |
-| **REQ-18** | Navigation | [`tests/navigation/nav.test1.js`](file:///d:/Assignments/STQA%20mini/tests/navigation/nav.test1.js) | Verify Amazon logo redirects to home | Click logo from header | Browser navigates to `amazon.html` | Navigation verified | **PASS** |
-| **REQ-19** | Navigation | [`tests/navigation/nav.test2.js`](file:///d:/Assignments/STQA%20mini/tests/navigation/nav.test2.js) | Verify Returns & Orders link routing | Click Returns & Orders | Browser navigates to `orders.html` | Navigation verified | **PASS** |
-| **REQ-20** | Navigation | [`tests/navigation/nav.test3.js`](file:///d:/Assignments/STQA%20mini/tests/navigation/nav.test3.js) | Verify Cart link routing | Click Cart icon | Browser navigates to `checkout.html` | Navigation verified | **PASS** |
+| **REQ-01** | Authentication | [`tests/legacy/login/login.test1.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/login/login.test1.js) | Verify successful login with valid credentials | User: `Yogesh`<br>Pass: `8329097855` | Alert "Welcome to Amazon, Yogesh" & redirect to `amazon.html` | Alert captured, redirection successful | **PASS** |
+| **REQ-02** | Authentication | [`tests/legacy/login/login.test2.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/login/login.test2.js) | Verify rejection of incorrect password | User: `Yogesh`<br>Pass: `5555` | Alert "Invalid Password. Login Failed." | Alert captured correctly | **PASS** |
+| **REQ-03** | Authentication | [`tests/legacy/login/login.test3.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/login/login.test3.js) | Verify rejection of unrecognized username | User: `abcd`<br>Pass: `password` | Alert "Invalid Username. Login Failed." | Alert captured correctly | **PASS** |
+| **REQ-04** | Authentication | [`tests/legacy/login/login.test4.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/login/login.test4.js) | Verify rejection of blank credentials | User: `""`<br>Pass: `""` | Alert "Invalid credentials. Login Failed." | Alert captured correctly | **PASS** |
+| **REQ-05** | Catalog | [`tests/legacy/homepage/test1.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/homepage/test1.js) | Verify product grid displays catalog cards | Nav to `amazon.html` | Grid elements `.product-container` populated from JSON | All cards rendered with buttons | **PASS** |
+| **REQ-06** | Cart | [`tests/legacy/cart/delete.test.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/cart/delete.test.js) | Verify deletion of product from cart | Click delete link on checkout | Item container removed; cart counter decremented | Cart item removed from DOM | **PASS** |
+| **REQ-07** | Shipping Details | [`tests/legacy/address/test1.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/address/test1.js) | Verify address form with missing street address | City: "Example City", Country: "USA", Zip: "123" | Alert "Please fill out all fields" | Alert triggered due to missing street address | **PASS** |
+| **REQ-08** | Shipping Details | [`tests/legacy/address/test2.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/address/test2.js) | Verify address form with missing country | Addr: "123 St", City: "Pune", Zip: "411001" | Form validation error prevents submission | Validation alert displayed | **PASS** |
+| **REQ-09** | Shipping Details | [`tests/legacy/address/test3.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/address/test3.js) | Verify address form with missing city | Addr: "123 St", Country: "India", Zip: "411001" | Form validation error prevents submission | Validation alert displayed | **PASS** |
+| **REQ-10** | Shipping Details | [`tests/legacy/address/test4.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/address/test4.js) | Verify address form with missing zip code | Addr: "123 St", City: "Pune", Country: "India" | Form validation error prevents submission | Validation alert displayed | **PASS** |
+| **REQ-11** | Shipping Details | [`tests/legacy/address/test5.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/address/test5.js) | Verify address form with complete valid data | All 4 fields filled | Alert "User details entered successfully!" | Alert captured, data accepted | **PASS** |
+| **REQ-12** | Payment | [`tests/legacy/payment/test1.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/payment/test1.js) | Verify rejection of invalid card number (< 16 digits) | Card: `111122223333` (12 digits) | Alert "Please fill out all required fields correctly." | Alert captured correctly | **PASS** |
+| **REQ-13** | Payment | [`tests/legacy/payment/test2.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/payment/test2.js) | Verify rejection of invalid expiration date format | Card: 16 digits, Expiry: `13/2026` | Alert for invalid expiration date format | Alert captured correctly | **PASS** |
+| **REQ-14** | Payment | [`tests/legacy/payment/test3.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/payment/test3.js) | Verify rejection of invalid CVV length (< 3 digits) | Card: 16 digits, Expiry: `10/28`, CVV: `12` | Alert for invalid CVV | Alert captured correctly | **PASS** |
+| **REQ-15** | Payment | [`tests/legacy/payment/test4.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/payment/test4.js) | Verify successful payment processing with valid inputs | 16-digit card, `12/28`, 3-digit CVV | Alert "Payment successful. Order placed!" | Alert captured, order completed | **PASS** |
+| **REQ-16** | Order Tracking | [`tests/legacy/tracking/tracking.test1.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/tracking/tracking.test1.js) | Verify tracking page title and header rendering | Nav to `tracking.html` | Page title "Tracking", tracking details visible | Title verified | **PASS** |
+| **REQ-17** | Order Tracking | [`tests/legacy/tracking/tracking.test2.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/tracking/tracking.test2.js) | Verify delivery progress status bar | Inspect `.progress-bar` | Progress bar represents order lifecycle | Progress bar DOM confirmed | **PASS** |
+| **REQ-18** | Navigation | [`tests/legacy/navigation/nav.test1.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/navigation/nav.test1.js) | Verify Amazon logo redirects to home | Click logo from header | Browser navigates to `amazon.html` | Navigation verified | **PASS** |
+| **REQ-19** | Navigation | [`tests/legacy/navigation/nav.test2.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/navigation/nav.test2.js) | Verify Returns & Orders link routing | Click Returns & Orders | Browser navigates to `orders.html` | Navigation verified | **PASS** |
+| **REQ-20** | Navigation | [`tests/legacy/navigation/nav.test3.js`](file:///d:/Assignments/STQA%20mini/tests/legacy/navigation/nav.test3.js) | Verify Cart link routing | Click Cart icon | Browser navigates to `checkout.html` | Navigation verified | **PASS** |
 
 ---
 
@@ -329,16 +329,26 @@ During the construction and execution of the automated test suites, the followin
 3. **Zip Code Input Accepts Negative Numbers / Symbols:**
    - While `user_details.html` ensures the field is not blank, non-numeric strings like `ABC-@@` are accepted without format checking.
 
+### 7.3 Automated Exploratory Sessions
+The charters above are automated as session-based tours under [`tests/exploratory/`](file:///d:/Assignments/STQA%20mini/tests/exploratory). Each tour records its observations into `reports/findings.json`, which the report generator renders in the exploratory findings table of `reports/test-report.html`.
+
+| Session | Charter focus | Spec |
+| :---: | :--- | :--- |
+| **EXP-01** | Checkout & payment journey — rapid multi-click, empty-cart ordering, browser back/forward across payment, end-to-end purchase confirmation | [`tests/exploratory/EXP-01-checkout-tour.spec.js`](file:///d:/Assignments/STQA%20mini/tests/exploratory/EXP-01-checkout-tour.spec.js) |
+| **EXP-02** | Data & access-control tour — symbolic zipcode, reflected input escaping, direct URL access without login, client-side cart tampering | [`tests/exploratory/EXP-02-data-security-tour.spec.js`](file:///d:/Assignments/STQA%20mini/tests/exploratory/EXP-02-data-security-tour.spec.js) |
+
 ---
 
 ## 8. Conclusion & Recommendations
 
-The test plan and regression suites in this repository provide a robust foundation for automated quality assurance. By automating 20+ regression test cases using **Selenium WebDriver**, the project successfully covers the primary critical flows of an e-commerce platform.
+The test plan and regression suites in this repository provide a robust foundation for automated quality assurance. The authoritative automated suite is the **WebdriverIO v10** regression package under [`tests/regression/`](file:///d:/Assignments/STQA%20mini/tests/regression) (driving Chrome via ChromeDriver / the Selenium WebDriver API), complemented by the **Selenium IDE** project [`selenium-ide/STQA-AmazonClone.side`](file:///d:/Assignments/STQA%20mini/selenium-ide/STQA-AmazonClone.side) and the original hand-written `selenium-webdriver` scripts preserved under [`tests/legacy/`](file:///d:/Assignments/STQA%20mini/tests/legacy).
 
 ### Summary of Quality Metrics:
-- **Total Test Cases Automated:** 20+
-- **Automated Regression Pass Rate:** 100% (under nominal test conditions)
-- **Defects Identified & Categorized:** 4 Key Defects (1 Blocker, 2 Major, 1 Moderate)
-- **Taxonomy Adherence:** Fully classified across 5 categories, 4 severity tiers, and 4 priority tiers.
+- **Automated regression test cases:** 80+ across 9 ordered feature specs (TC-LOGIN, TC-NAV, TC-CAT, TC-CART, TC-SUM, TC-ADR, TC-PAY, TC-ORD/TRK, TC-SEC), plus 8 exploratory tour steps.
+- **Defects identified & categorised:** 22, recorded in the machine-readable register [`docs/defects.json`](file:///d:/Assignments/STQA%20mini/docs/defects.json).
+- **Taxonomy adherence:** fully classified across 6 categories (SEC, VAL, NAV, FUN, MON, UX), 4 severity tiers (S1–S4) and 4 priority tiers.
+- **Verdict model:** every test asserts the *required* behaviour, so a failing test is evidence of a defect. The report classifies each result as PASS, FAIL-DEFECT (mapped to a known bug) or FAIL-NEW (unmapped — triage). Run `npm test` and open `reports/test-report.html` for the live numbers.
 
-This document serves as an exhaustive, IEEE 829-aligned submission ready for academic evaluation, project defense, and automated QA demonstration.
+> **Note on pass rate:** unlike a naive "all green" suite, this project deliberately asserts the *correct* behaviour the application violates. Confirmed bugs therefore appear as FAIL-DEFECT rows — that is the intended, demonstrable outcome of the bug-identification objective, not a broken suite.
+
+This document serves as an exhaustive, IEEE 829-aligned submission ready for academic evaluation, project defense, and automated QA demonstration. Reproduction steps for the full practical are in [`docs/PRACTICAL_STEPS.md`](file:///d:/Assignments/STQA%20mini/docs/PRACTICAL_STEPS.md).

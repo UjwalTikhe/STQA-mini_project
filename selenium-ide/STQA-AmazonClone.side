@@ -1,0 +1,106 @@
+{
+  "id": "stqa-amazonclone-829",
+  "version": "2.0",
+  "name": "STQA Amazon Clone - Regression & Bug Hunt",
+  "url": "http://127.0.0.1:5501",
+  "tests": [
+    {
+      "id": "tc-login-valid",
+      "name": "TC-LOGIN-01 valid credentials reach the catalog",
+      "commands": [
+        { "id": "c1", "comment": "Open the login page (uses the project base URL).", "command": "open", "target": "/login.html", "targets": [], "value": "" },
+        { "id": "c2", "comment": "", "command": "type", "target": "id=username", "targets": [["id=username", "id"], ["css=#username", "css"]], "value": "Yogesh" },
+        { "id": "c3", "comment": "", "command": "type", "target": "id=password", "targets": [["id=password", "id"], ["css=#password", "css"]], "value": "8329097855" },
+        { "id": "c4", "comment": "", "command": "click", "target": "id=login-btn", "targets": [["id=login-btn", "id"], ["css=#login-btn", "css"]], "value": "" },
+        { "id": "c5", "comment": "Login redirects to amazon.html on success.", "command": "waitForLocation", "target": "javascript", "targets": [], "value": "/amazon\\.html/" },
+        { "id": "c6", "comment": "", "command": "assertTitle", "target": "Amazon Homepage", "targets": [], "value": "" }
+      ]
+    },
+    {
+      "id": "tc-login-invalid",
+      "name": "TC-LOGIN-04 wrong password is rejected (bug: message names the wrong field)",
+      "commands": [
+        { "id": "c1", "comment": "", "command": "open", "target": "/login.html", "targets": [], "value": "" },
+        { "id": "c2", "comment": "", "command": "type", "target": "id=username", "targets": [["id=username", "id"]], "value": "Yogesh" },
+        { "id": "c3", "comment": "Deliberately wrong password.", "command": "type", "target": "id=password", "targets": [["id=password", "id"]], "value": "0000000000" },
+        { "id": "c4", "comment": "The app raises a native alert. Selenium IDE captures it via the alert target.", "command": "click", "target": "id=login-btn", "targets": [["id=login-btn", "id"]], "value": "" },
+        { "id": "c5", "comment": "CAT-VAL-005: an unknown/invalid credential reports 'Invalid Password' even when the username is the real problem. This assertion documents expected behaviour and will FAIL, exposing the bug.", "command": "assertConfirmation", "target": "Invalid Password. Login Failed.", "targets": [], "value": "" },
+        { "id": "c6", "comment": "Buyer must remain on the login page after a rejected login.", "command": "assertTitle", "target": "Amazon Clone - Login", "targets": [], "value": "" }
+      ]
+    },
+    {
+      "id": "tc-catalog-add",
+      "name": "TC-CART-01 add a product and see the header counter change",
+      "commands": [
+        { "id": "c1", "comment": "", "command": "open", "target": "/login.html", "targets": [], "value": "" },
+        { "id": "c2", "comment": "", "command": "type", "target": "id=username", "targets": [["id=username", "id"]], "value": "Yogesh" },
+        { "id": "c3", "comment": "", "command": "type", "target": "id=password", "targets": [["id=password", "id"]], "value": "8329097855" },
+        { "id": "c4", "comment": "", "command": "click", "target": "id=login-btn", "targets": [["id=login-btn", "id"]], "value": "" },
+        { "id": "c5", "comment": "Wait for the dynamically rendered product grid.", "command": "waitForElementPresent", "target": "css=.js-products-grid .product-container", "targets": [], "value": "" },
+        { "id": "c6", "comment": "Click the first Add to Cart button.", "command": "click", "target": "css=.js-add-to-cart", "targets": [["css=.js-products-grid .js-add-to-cart", "css"]], "value": "" },
+        { "id": "c7", "comment": "Header cart quantity should now be non-zero.", "command": "store", "target": "css=.js-cart-quantity", "targets": [], "value": "counter" },
+        { "id": "c8", "comment": "CAT-FUN-009: header counter can disagree with the true cart total.", "command": "assertText", "target": "css=.js-cart-quantity", "targets": [], "value": "1" }
+      ]
+    },
+    {
+      "id": "tc-checkout-route",
+      "name": "TC-NAV-04 place order routes to the address step",
+      "commands": [
+        { "id": "c1", "comment": "", "command": "open", "target": "/checkout.html", "targets": [], "value": "" },
+        { "id": "c2", "comment": "", "command": "click", "target": "css=.place-order-button", "targets": [["css=.place-order-button", "css"]], "value": "" },
+        { "id": "c3", "comment": "", "command": "waitForLocation", "target": "javascript", "targets": [], "value": "/user_details\\.html/" },
+        { "id": "c4", "comment": "", "command": "assertTitle", "target": "User Details", "targets": [], "value": "" }
+      ]
+    },
+    {
+      "id": "tc-address-workflow",
+      "name": "TC-NAV-08 address submit should continue to payment (bug: it does not)",
+      "commands": [
+        { "id": "c1", "comment": "", "command": "open", "target": "/user_details.html", "targets": [], "value": "" },
+        { "id": "c2", "comment": "", "command": "type", "target": "id=address", "targets": [["id=address", "id"]], "value": "221B Baker Street" },
+        { "id": "c3", "comment": "", "command": "type", "target": "id=country", "targets": [["id=country", "id"]], "value": "United States" },
+        { "id": "c4", "comment": "", "command": "type", "target": "id=city", "targets": [["id=city", "id"]], "value": "New York" },
+        { "id": "c5", "comment": "CAT-VAL-013: a symbolic zipcode is accepted with no format check.", "command": "type", "target": "id=zipcode", "targets": [["id=zipcode", "id"]], "value": "-@@12" },
+        { "id": "c6", "comment": "", "command": "click", "target": "id=proceed-button", "targets": [["id=proceed-button", "id"]], "value": "" },
+        { "id": "c7", "comment": "CAT-FUN-006: the success handler only alerts; the form then does a native GET reload so the buyer never reaches payments.html. This assertion documents expected behaviour and will FAIL, exposing the bug.", "command": "assertLocation", "target": "javascript", "targets": [], "value": "/payments\\.html/" }
+      ]
+    },
+    {
+      "id": "tc-orders-hardcode",
+      "name": "TC-NAV-09 orders page must not hard-code the host (bug: it does)",
+      "commands": [
+        { "id": "c1", "comment": "", "command": "open", "target": "/orders.html", "targets": [], "value": "" },
+        { "id": "c2", "comment": "Wait for the third Buy-it-again button, the one wired to an absolute URL.", "command": "waitForElementPresent", "target": "id=product-3", "targets": [], "value": "" },
+        { "id": "c3", "comment": "CAT-NAV-002: product-3 navigates via http://127.0.0.1:5501/user_details.html instead of a relative path, breaking the page on any other host/port.", "command": "assertAttribute", "target": "id=product-3@onclick", "targets": [], "value": "location.href = \"http://127.0.0.1:5501/user_details.html\"" }
+      ]
+    },
+    {
+      "id": "tc-tracking-counter",
+      "name": "TC-TRK-02 tracking counter matches the real cart (bug: hard-coded)",
+      "commands": [
+        { "id": "c1", "comment": "", "command": "open", "target": "/tracking.html", "targets": [], "value": "" },
+        { "id": "c2", "comment": "CAT-FUN-016: the header cart quantity on tracking.html is hard-coded rather than read from the cart. With one real item it still shows 3.", "command": "assertText", "target": "css=.js-cart-quantity", "targets": [], "value": "1" }
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "suite-regression",
+      "name": "Full Regression (bug hunt)",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 300,
+      "tests": [
+        "tc-login-valid",
+        "tc-login-invalid",
+        "tc-catalog-add",
+        "tc-checkout-route",
+        "tc-address-workflow",
+        "tc-orders-hardcode",
+        "tc-tracking-counter"
+      ]
+    }
+  ],
+  "urls": ["http://127.0.0.1:5501", "http://localhost:5501"],
+  "plugins": []
+}
